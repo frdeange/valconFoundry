@@ -31,7 +31,8 @@ python demo1_llm_consumption/1a_foundry_responses.py
 │
 ├── demo1_llm_consumption/                 # Demo 1: LLM Consumption
 │   ├── 1a_foundry_responses.py            #   → Foundry SDK + Responses API
-│   └── 1b_openai_native.py               #   → Direct OpenAI SDK + Chat Completions
+│   ├── 1b_openai_native.py               #   → Direct OpenAI SDK + Chat Completions
+│   └── 1c_model_router.py                #   → Model Router (smart multi-model routing)
 │
 ├── demo2_agents/                          # Demo 2: Foundry Agents
 │   ├── 2a_basic_agent.py                  #   → Basic agent + multi-turn conversation
@@ -60,16 +61,18 @@ python demo1_llm_consumption/1a_foundry_responses.py
 
 Shows two ways to call an LLM, highlighting the differences:
 
-| | **1a: Foundry SDK** | **1b: Direct OpenAI SDK** |
-|---|---|---|
-| Client | `AIProjectClient` → `get_openai_client()` | `AzureOpenAI` (manual setup) |
-| API | Responses API (`responses.create`) | Chat Completions (`chat.completions.create`) |
-| Multi-turn | `previous_response_id` | Manual message list |
-| Project features | Tracing, agents, eval, datasets | Model-only, no project context |
+| | **1a: Foundry SDK** | **1b: Direct OpenAI SDK** | **1c: Model Router** |
+|---|---|---|---|
+| Client | `AIProjectClient` → `get_openai_client()` | `AzureOpenAI` (manual setup) | `AIProjectClient` → `get_openai_client()` |
+| API | Responses API (`responses.create`) | Chat Completions (`chat.completions.create`) | Chat Completions (router uses this API) |
+| Model | Single fixed model | Single fixed model | Router selects best model per-prompt |
+| Multi-turn | `previous_response_id` | Manual message list | Manual message list |
+| Metadata | Basic | Basic | Full: model selected, tokens, latency |
 
 ```bash
 python demo1_llm_consumption/1a_foundry_responses.py
 python demo1_llm_consumption/1b_openai_native.py
+python demo1_llm_consumption/1c_model_router.py
 ```
 
 ### Demo 2 — Foundry Agents
@@ -142,6 +145,7 @@ python demo5_evaluation/5b_evaluate_agent.py
 |---|---|---|---|
 | `AZURE_AI_PROJECT_ENDPOINT` | ✅ All demos | All | Foundry project endpoint URL |
 | `AZURE_AI_MODEL_DEPLOYMENT_NAME` | ✅ All demos | All | Model deployment name (e.g. `gpt-4o`) |
+| `MODEL_ROUTER_DEPLOYMENT_NAME` | Demo 1c only | `1c_model_router.py` | Model Router deployment name (default: `model-router`) |
 | `ACR_NAME` | Demo 3 only | `3_deploy_hosted_agent.py` | ACR name (e.g. `myacr`, not the full `.azurecr.io` URL) |
 | `FOUNDRY_ACCOUNT_NAME` | Demo 3 only | `3_deploy_hosted_agent.py` | Foundry account name |
 | `FOUNDRY_PROJECT_NAME` | Demo 3 only | `3_deploy_hosted_agent.py` | Foundry project name |
