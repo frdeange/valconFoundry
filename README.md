@@ -38,7 +38,8 @@ python demo1_llm_consumption/1a_foundry_responses.py
 │   ├── 2a_basic_agent.py                  #   → Basic agent + multi-turn conversation
 │   ├── 2b_agent_function_tool.py          #   → Agent with custom FunctionTool
 │   ├── 2c_agent_code_interpreter.py       #   → Agent with Code Interpreter
-│   └── 2d_agent_mcp_tools.py              #   → Agent with MCP tools (Learn + GitMCP)
+│   ├── 2d_agent_mcp_tools.py              #   → Agent with MCP tools (Learn + GitMCP)
+│   └── 2e_agent_portal_mcp.py             #   → Agent with portal-registered MCP tools
 │
 ├── demo3_hosted_agent/                    # Demo 3: Hosted Agents
 │   ├── agent_app.py                       #   → Agent code (Microsoft Agent Framework)
@@ -52,7 +53,9 @@ python demo1_llm_consumption/1a_foundry_responses.py
 │
 └── demo5_evaluation/                      # Demo 5: Evaluation
     ├── 5a_evaluate_llm.py                 #   → Evaluate LLM responses
-    └── 5b_evaluate_agent.py               #   → Evaluate an agent
+    ├── 5b_evaluate_agent.py               #   → Evaluate an agent
+    ├── 5c_custom_evaluators.py            #   → Custom evaluators (code + prompt)
+    └── EVALUATION_GUIDE.md                #   → Complete evaluator reference
 ```
 
 ## Demo Details
@@ -83,12 +86,14 @@ Four progressively more complex agent examples:
 - **2b** — Agent with a custom `FunctionTool` defined "on the go" (local function calling)
 - **2c** — Agent with the built-in `CodeInterpreterTool` (sandboxed Python execution)
 - **2d** — Agent with `MCPTool` connecting to external MCP servers (Microsoft Learn + GitMCP)
+- **2e** — Agent with MCP tools **registered in the Foundry portal** as Project Connections
 
 ```bash
 python demo2_agents/2a_basic_agent.py
 python demo2_agents/2b_agent_function_tool.py
 python demo2_agents/2c_agent_code_interpreter.py
 python demo2_agents/2d_agent_mcp_tools.py
+python demo2_agents/2e_agent_portal_mcp.py
 ```
 
 ### Demo 3 — Hosted Agents
@@ -133,10 +138,12 @@ python demo4_observability/4b_azure_monitor_tracing.py   # Requires App Insights
 
 - **5a** — Evaluate **model responses** with built-in evaluators (fluency, violence, coherence)
 - **5b** — Evaluate an **agent** with task adherence, fluency, and safety metrics
+- **5c** — Create and use **custom evaluators**: code-based (deterministic Python) + prompt-based (LLM judge)
 
 ```bash
 python demo5_evaluation/5a_evaluate_llm.py
 python demo5_evaluation/5b_evaluate_agent.py
+python demo5_evaluation/5c_custom_evaluators.py
 ```
 
 ## Environment Variables

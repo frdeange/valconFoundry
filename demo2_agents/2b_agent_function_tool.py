@@ -57,7 +57,7 @@ weather_tool = FunctionTool(
                 "description": "Temperature unit. Defaults to celsius.",
             },
         },
-        "required": ["city"],
+        "required": ["city", "unit"],
         "additionalProperties": False,
     },
     strict=True,
