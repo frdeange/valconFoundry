@@ -403,9 +403,10 @@ def main():
             if hasattr(eval_run, "error") and eval_run.error:
                 print(f"   Error: {eval_run.error}")
 
-        # ── Step 8: Cleanup ─────────────────────────────────────────
-        project_client.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
-        print(f"\n🗑️  Agent version deleted.")
+        # ── Resources kept for portal demo ─────────────────────────
+        # project_client.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
+        print(f"\n📌 Agent preserved: {agent.name} (version {agent.version})")
+        print(f"   View in the Foundry portal.")
 
     print("\n✅ Demo 5b complete.")
 

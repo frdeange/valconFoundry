@@ -132,10 +132,10 @@ def main():
 
                 print(f"\n💬 Agent response: {response.output_text}")
 
-                # Cleanup
-                openai_client.conversations.delete(conversation_id=conversation.id)
-
-            project_client.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
+                # Resources kept for portal demo
+                # openai_client.conversations.delete(conversation_id=conversation.id)
+                # project_client.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
+                print(f"\n📌 Resources preserved (agent: {agent.name})")
 
     print("\n✅ Demo 4a complete. Review the trace spans printed above.")
 

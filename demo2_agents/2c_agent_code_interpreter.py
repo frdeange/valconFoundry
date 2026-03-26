@@ -100,12 +100,11 @@ def main():
 
             print(f"\n[Turn 2] A: {response.output_text}")
 
-            # ── Cleanup ─────────────────────────────────────────────
-            openai_client.conversations.delete(conversation_id=conversation.id)
-            print(f"\n🗑️  Conversation deleted.")
-
-        project_client.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
-        print(f"🗑️  Agent version deleted.")
+            # ── Resources kept for portal demo ─────────────────────
+            # openai_client.conversations.delete(conversation_id=conversation.id)
+            # project_client.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
+            print(f"\n📌 Resources preserved (agent: {agent.name}, conversation: {conversation.id})")
+            print(f"   View them in the Foundry portal.")
 
     print("\n✅ Demo 2c complete.")
 

@@ -140,10 +140,10 @@ def demo_microsoft_learn_mcp():
             response = handle_mcp_approval(response, openai_client, conversation.id, agent.name)
             print(f"\n[A] {response.output_text}")
 
-            # Cleanup
-            openai_client.conversations.delete(conversation_id=conversation.id)
-            project_client.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
-            print(f"\n🗑️  Cleaned up agent and conversation.")
+            # Resources kept for portal demo
+            # openai_client.conversations.delete(conversation_id=conversation.id)
+            # project_client.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
+            print(f"\n📌 Resources preserved (agent: {agent.name})")
 
 
 def demo_gitmcp():
@@ -197,10 +197,10 @@ def demo_gitmcp():
             response = handle_mcp_approval(response, openai_client, conversation.id, agent.name)
             print(f"\n[A] {response.output_text}")
 
-            # Cleanup
-            openai_client.conversations.delete(conversation_id=conversation.id)
-            project_client.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
-            print(f"\n🗑️  Cleaned up agent and conversation.")
+            # Resources kept for portal demo
+            # openai_client.conversations.delete(conversation_id=conversation.id)
+            # project_client.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
+            print(f"\n📌 Resources preserved (agent: {agent.name})")
 
 
 def demo_multiple_mcp():
@@ -259,10 +259,10 @@ def demo_multiple_mcp():
             response = handle_mcp_approval(response, openai_client, conversation.id, agent.name)
             print(f"\n[A] {response.output_text}")
 
-            # Cleanup
-            openai_client.conversations.delete(conversation_id=conversation.id)
-            project_client.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
-            print(f"\n🗑️  Cleaned up agent and conversation.")
+            # Resources kept for portal demo
+            # openai_client.conversations.delete(conversation_id=conversation.id)
+            # project_client.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
+            print(f"\n📌 Resources preserved (agent: {agent.name})")
 
 
 def main():

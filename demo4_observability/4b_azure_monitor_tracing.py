@@ -108,10 +108,10 @@ def main():
                 )
                 print(f"[Turn 2] A: {response.output_text}")
 
-                # Cleanup
-                openai_client.conversations.delete(conversation_id=conversation.id)
-
-            project_client.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
+                # Resources kept for portal demo
+                # openai_client.conversations.delete(conversation_id=conversation.id)
+                # project_client.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
+                print(f"\n📌 Resources preserved (agent: {agent.name})")
 
     print(f"\n📊 Traces sent to Application Insights.")
     print(f"   View them in the Foundry portal → Tracing tab")
