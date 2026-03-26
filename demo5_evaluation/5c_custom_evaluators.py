@@ -449,10 +449,11 @@ def main():
                 print(f"\n   ── Item {i+1}: \"{query}...\"")
                 if hasattr(item, "results") and item.results:
                     for r in item.results:
-                        name = r.get("name", "?")
-                        passed = "✅" if r.get("passed") else "❌"
-                        score = r.get("score", r.get("label", "N/A"))
-                        reason = r.get("reason", "")[:80]
+                        rd = r.model_dump() if hasattr(r, "model_dump") else r
+                        name = rd.get("name", "?")
+                        passed = "✅" if rd.get("passed") else "❌"
+                        score = rd.get("score", rd.get("label", "N/A"))
+                        reason = str(rd.get("reason", ""))[:80]
                         print(f"      {passed} {name}: score={score} | {reason}")
 
             if hasattr(run, "report_url") and run.report_url:

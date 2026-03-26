@@ -1,15 +1,16 @@
-# syntax=docker/dockerfile:1
 # ─────────────────────────────────────────────────────────────
 # Hosted Agent container image
 #
-# IMPORTANT: Always build with --platform linux/amd64
+# For local Docker builds, use --platform linux/amd64:
 #   docker build --platform linux/amd64 -t my-hosted-agent:latest .
 #
+# For ACR Tasks (cloud build), just run:
+#   az acr build --registry <acr> --image <name>:<tag> .
+#
 # Foundry hosted agents run on Linux AMD64 infrastructure.
-# Images built for ARM64 (e.g. Apple Silicon) will fail at runtime.
 # ─────────────────────────────────────────────────────────────
 
-FROM --platform=linux/amd64 python:3.13-slim
+FROM python:3.13-slim
 
 WORKDIR /app
 

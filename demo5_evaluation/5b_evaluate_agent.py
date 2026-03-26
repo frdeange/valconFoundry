@@ -59,7 +59,8 @@ import time
 from dotenv import load_dotenv
 from azure.identity import DefaultAzureCredential
 from azure.ai.projects import AIProjectClient
-from azure.ai.projects.models import PromptAgentDefinition, FunctionTool, DataSourceConfigCustom
+from azure.ai.projects.models import PromptAgentDefinition, FunctionTool
+from openai.types.eval_create_params import DataSourceConfigCustom
 
 load_dotenv()
 
