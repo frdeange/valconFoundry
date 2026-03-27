@@ -39,7 +39,11 @@ python demo1_llm_consumption/1a_foundry_responses.py
 │   ├── 2b_agent_function_tool.py          #   → Agent with custom FunctionTool
 │   ├── 2c_agent_code_interpreter.py       #   → Agent with Code Interpreter
 │   ├── 2d_agent_mcp_tools.py              #   → Agent with MCP tools (Learn + GitMCP)
-│   └── 2e_agent_portal_mcp.py             #   → Agent with portal-registered MCP tools
+│   ├── 2e_agent_portal_mcp.py             #   → Agent with portal-registered MCP tools
+│   ├── 2f_agent_from_yaml.py              #   → Agent from YAML definition file
+│   ├── 2g_agent_structured_output.py      #   → Agent with structured JSON output
+│   └── agent_definitions/                 #   → YAML agent definition files
+│       └── travel_assistant.yaml
 │
 ├── demo3_hosted_agent/                    # Demo 3: Hosted Agents
 │   ├── agent_app.py                       #   → Agent code (Microsoft Agent Framework)
@@ -87,6 +91,8 @@ Four progressively more complex agent examples:
 - **2c** — Agent with the built-in `CodeInterpreterTool` (sandboxed Python execution)
 - **2d** — Agent with `MCPTool` connecting to external MCP servers (Microsoft Learn + GitMCP)
 - **2e** — Agent with MCP tools **registered in the Foundry portal** as Project Connections
+- **2f** — Agent created from a **YAML definition file** (agent-as-code pattern)
+- **2g** — Agent with **structured JSON output** (Pydantic schema → CRM lead qualification)
 
 ```bash
 python demo2_agents/2a_basic_agent.py
@@ -94,6 +100,8 @@ python demo2_agents/2b_agent_function_tool.py
 python demo2_agents/2c_agent_code_interpreter.py
 python demo2_agents/2d_agent_mcp_tools.py
 python demo2_agents/2e_agent_portal_mcp.py
+python demo2_agents/2f_agent_from_yaml.py
+python demo2_agents/2g_agent_structured_output.py
 ```
 
 ### Demo 3 — Hosted Agents

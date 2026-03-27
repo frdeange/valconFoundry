@@ -4,6 +4,10 @@ azure-ai-projects>=2.0.0
 # Environment variable loading
 python-dotenv
 
+# YAML agent definitions (Demo 2f) + Structured output (Demo 2g)
+pyyaml
+pydantic
+
 # Observability / Tracing (Demo 4)
 opentelemetry-sdk
 azure-core-tracing-opentelemetry

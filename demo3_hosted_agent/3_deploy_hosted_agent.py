@@ -72,11 +72,17 @@ def step1_build_and_push():
     print("=" * 60)
 
     if has_docker():
-        # Local Docker build + push
-        run_cmd(f"az acr login --name {ACR_NAME}", "Login to ACR")
+        # Local Docker build + push using ACR admin credentials (most reliable)
         run_cmd(
             f"docker build --platform linux/amd64 -t {ACR_IMAGE} {SCRIPT_DIR}",
             "Build Docker image (linux/amd64)",
+        )
+        # Login with admin credentials to push (avoids AAD RBAC propagation delays)
+        run_cmd(
+            f'ACR_PASS=$(az acr credential show --name {ACR_NAME} --resource-group {RESOURCE_GROUP} '
+            f'--query "passwords[0].value" -o tsv) && '
+            f'docker login {ACR_NAME}.azurecr.io -u {ACR_NAME} -p "$ACR_PASS"',
+            "Login to ACR (admin credentials)",
         )
         run_cmd(f"docker push {ACR_IMAGE}", "Push image to ACR")
     else:

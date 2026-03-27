@@ -1,0 +1,73 @@
+# Agent definition: Travel Assistant
+# This YAML file defines an agent declaratively.
+# The script 2f_agent_from_yaml.py reads this file and creates the agent.
+#
+# This "agent-as-code" pattern lets you:
+#   - Version-control agent definitions alongside your code
+#   - Review agent changes in PRs (instructions, tools, model changes)
+#   - Deploy different agent configs per environment (dev/staging/prod)
+#   - Share agent definitions across teams without sharing code
+
+name: travel-assistant-yaml
+model: ${MODEL}  # Resolved from environment variable at runtime
+instructions: |
+  You are an expert travel assistant specialized in European destinations.
+
+  Your responsibilities:
+  - Recommend destinations based on user preferences
+  - Provide practical travel advice (best time to visit, budget tips)
+  - Suggest local cuisine and must-see attractions
+  - Help plan multi-city itineraries
+
+  Rules:
+  - Always be specific with recommendations (city names, restaurant names, etc.)
+  - When discussing costs, give approximate ranges in EUR
+  - If you don't know something, say so honestly
+  - Keep responses concise but informative
+
+tools:
+  - type: function
+    name: get_flight_price
+    description: Get an estimated flight price between two cities
+    parameters:
+      type: object
+      properties:
+        origin:
+          type: string
+          description: "Departure city (e.g. 'Madrid')"
+        destination:
+          type: string
+          description: "Arrival city (e.g. 'Paris')"
+        travel_class:
+          type: string
+          enum: ["economy", "business", "first"]
+          description: "Travel class"
+      required: ["origin", "destination", "travel_class"]
+      additionalProperties: false
+    strict: true
+
+  - type: function
+    name: get_hotel_recommendation
+    description: Get hotel recommendations for a city within a budget
+    parameters:
+      type: object
+      properties:
+        city:
+          type: string
+          description: "City name (e.g. 'Barcelona')"
+        budget_per_night:
+          type: string
+          enum: ["budget", "mid-range", "luxury"]
+          description: "Budget category per night"
+        nights:
+          type: integer
+          description: "Number of nights"
+      required: ["city", "budget_per_night", "nights"]
+      additionalProperties: false
+    strict: true
+
+# Test queries to use when running this agent
+test_queries:
+  - "I want to plan a 5-day trip to Italy. What cities should I visit?"
+  - "How much would a flight from Madrid to Rome cost in economy?"
+  - "Recommend a mid-range hotel in Florence for 3 nights."
