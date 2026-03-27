@@ -1,6 +1,4 @@
 # Dependencies for the hosted agent container (Demo 3)
-azure-ai-agentserver-core
-azure-ai-agentserver-agentframework
-agent-framework
+azure-ai-agentserver-agentframework==1.0.0b16
 azure-identity
 python-dotenv

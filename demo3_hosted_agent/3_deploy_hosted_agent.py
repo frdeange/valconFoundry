@@ -23,6 +23,7 @@ from dotenv import load_dotenv
 from azure.identity import DefaultAzureCredential
 from azure.ai.projects import AIProjectClient
 from azure.ai.projects.models import HostedAgentDefinition, ProtocolVersionRecord, AgentProtocol
+from azure.core.pipeline.policies import HeadersPolicy
 
 load_dotenv()
 
@@ -137,12 +138,12 @@ def step2_configure_rbac():
     )
     acr_id = result.stdout.strip()
 
-    # Assign AcrPull role (idempotent — won't fail if already assigned)
+    # Assign Container Registry Repository Reader role (idempotent — won't fail if already assigned)
     run_cmd(
         f"az role assignment create "
         f"--assignee-object-id {principal_id} --assignee-principal-type ServicePrincipal "
-        f'--role "AcrPull" --scope {acr_id}',
-        "Assign AcrPull role to Foundry managed identity",
+        f'--role "Container Registry Repository Reader" --scope {acr_id}',
+        "Assign Container Registry Repository Reader role to Foundry managed identity",
         check=False,  # May already exist
     )
     print(f"\n✅ RBAC configured: Foundry can pull from {ACR_NAME}")
@@ -191,12 +192,16 @@ def step4_register_agent():
     print("STEP 4: Register hosted agent in Foundry")
     print("=" * 60)
 
+    # Hosted agents require the preview feature header
+    preview_headers = HeadersPolicy(headers={"Foundry-Features": "HostedAgents=V1Preview"})
+
     with (
         DefaultAzureCredential() as credential,
         AIProjectClient(
             endpoint=PROJECT_ENDPOINT,
             credential=credential,
             allow_preview=True,
+            headers_policy=preview_headers,
         ) as project_client,
     ):
         agent = project_client.agents.create_version(
@@ -234,8 +239,8 @@ def step5_start_agent(agent):
         f"az cognitiveservices agent start "
         f"--account-name {FOUNDRY_ACCOUNT} --project-name {FOUNDRY_PROJECT} "
         f"--name {AGENT_NAME} --agent-version {agent.version} "
-        f"--min-replicas 0 --max-replicas 1",
-        "Start the hosted agent deployment (scale-to-zero when idle)",
+        f"--timeout 300",
+        "Start the hosted agent deployment",
         check=False,  # CLI extension may not be installed
     )
 

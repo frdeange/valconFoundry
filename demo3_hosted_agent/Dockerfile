@@ -10,7 +10,7 @@
 # Foundry hosted agents run on Linux AMD64 infrastructure.
 # ─────────────────────────────────────────────────────────────
 
-FROM python:3.13-slim
+FROM python:3.12-slim
 
 WORKDIR /app
 
